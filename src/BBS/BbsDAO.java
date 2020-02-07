@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BbsDAO {
-    // dao : 데이터베이스 접근 객체의 약자
-	
+	// dao : 데이터베이스 접근 객체의 약자
+
 	private Connection conn; // connection:db에접근하게 해주는 객체
 	private ResultSet rs;
 
@@ -17,7 +18,7 @@ public class BbsDAO {
 		// 생성자를 만들어준다.
 		try {
 
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/BBS?&useSSL=false";
 			String dbID = "root";
 			String dbPassword = "man27040";
 			Class.forName("com.mysql.jdbc.Driver");
@@ -74,5 +75,42 @@ public class BbsDAO {
 			e.printStackTrace();
 		}
 		return -1; // 데이터베이스 오류
+	}
+
+	public ArrayList<Bbs> getList(int pageNumber) {
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
+		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Bbs BBS = new Bbs();
+				BBS.setBbsID(rs.getInt(1));
+				BBS.setBbsTitle(rs.getString(2));
+				BBS.setUserID(rs.getString(3));
+				BBS.setBbsDate(rs.getString(4));
+				BBS.setBbsContent(rs.getString(5));
+				BBS.setBbsAvailable(rs.getInt(6));
+				list.add(BBS);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public boolean nextPage(int pageNumber) {
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
