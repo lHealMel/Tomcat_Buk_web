@@ -7,20 +7,20 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class BbsDAO {
-	// dao : 데이터베이스 접근 객체의 약자
+	// dao : �뜲�씠�꽣踰좎씠�뒪 �젒洹� 媛앹껜�쓽 �빟�옄
 
-	private Connection conn; // connection:db에접근하게 해주는 객체
+	private Connection conn; // connection:db�뿉�젒洹쇳븯寃� �빐二쇰뒗 媛앹껜
 	private ResultSet rs;
 
-	// mysql 처리부분
+	// mysql 泥섎━遺�遺�
 	public BbsDAO() {
 
-		// 생성자를 만들어준다.
+		// �깮�꽦�옄瑜� 留뚮뱾�뼱以��떎.
 		try {
 
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?&useSSL=false";
-			String dbID = "root";
-			String dbPassword = "man27040";
+			String dbURL = "jdbc:mysql://localhost/mtn2072?&useSSL=false";
+			String dbID = "mtn2072";
+			String dbPassword = "Man2704020_";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
@@ -28,7 +28,7 @@ public class BbsDAO {
 		}
 	}
 
-	// 현재의 시간을 가져오는 함수
+	// �쁽�옱�쓽 �떆媛꾩쓣 媛��졇�삤�뒗 �븿�닔
 	public String getDate() {
 		String SQL = "SELECT NOW()";
 		try {
@@ -40,10 +40,10 @@ public class BbsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ""; // 데이터베이스 오류
+		return ""; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
 	}
 
-	// bbsID 게시글 번호 가져오는 함수
+	// bbsID 寃뚯떆湲� 踰덊샇 媛��졇�삤�뒗 �븿�닔
 	public int getNext() {
 		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
 		try {
@@ -52,14 +52,14 @@ public class BbsDAO {
 			if (rs.next()) {
 				return rs.getInt(1) + 1;
 			}
-			return 1;// 첫 번째 게시물인 경우
+			return 1;// 泥� 踰덉㎏ 寃뚯떆臾쇱씤 寃쎌슦
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // 데이터베이스 오류
+		return -1; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
 	}
 
-	// 실제로 글을 작성하는 함수
+	// �떎�젣濡� 湲��쓣 �옉�꽦�븯�뒗 �븿�닔
 	public int write(String bbsTitle, String userID, String bbsContent) {
 		String SQL = "INSERT INTO BBS VALUES(?, ?, ?, ?, ?, ?)";
 		try {
@@ -74,11 +74,11 @@ public class BbsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // 데이터베이스 오류
+		return -1; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
 	}
 
 	public ArrayList<Bbs> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; 
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -99,6 +99,7 @@ public class BbsDAO {
 		}
 		return list;
 	}
+
 	public boolean nextPage(int pageNumber) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 		try {
@@ -113,4 +114,41 @@ public class BbsDAO {
 		}
 		return false;
 	}
+
+	public Bbs getBbs(int bbsID) {
+		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bbsID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Bbs BBS = new Bbs();
+				BBS.setBbsID(rs.getInt(1));
+				BBS.setBbsTitle(rs.getString(2));
+				BBS.setUserID(rs.getString(3));
+				BBS.setBbsDate(rs.getString(4));
+				BBS.setBbsContent(rs.getString(5));
+				BBS.setBbsAvailable(rs.getInt(6));
+				return BBS;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int update(int bbsID, String bbsTitle, String bbsContent) {
+		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, bbsTitle);
+			pstmt.setString(2, bbsContent);
+			pstmt.setInt(3, bbsID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
+	}
+
 }

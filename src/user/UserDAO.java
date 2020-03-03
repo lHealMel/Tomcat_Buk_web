@@ -7,60 +7,60 @@ import java.sql.ResultSet;
 
 public class UserDAO {
 
-	// dao : 데이터베이스 접근 객체의 약자로서
+	// dao : �뜲�씠�꽣踰좎씠�뒪 �젒洹� 媛앹껜�쓽 �빟�옄濡쒖꽌
 
-	// 실질적으로 db에서 회원정보 불러오거나 db에 회원정보 넣을때
-	private Connection conn; // connection:db에접근하게 해주는 객체
+	// �떎吏덉쟻�쑝濡� db�뿉�꽌 �쉶�썝�젙蹂� 遺덈윭�삤嫄곕굹 db�뿉 �쉶�썝�젙蹂� �꽔�쓣�븣
+	private Connection conn; // connection:db�뿉�젒洹쇳븯寃� �빐二쇰뒗 媛앹껜
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	// mysql에 접속해 주는 부분
-	public UserDAO() { // 생성자 실행될때마다 자동으로 db연결이 이루어 질 수 있도록함
+	// mysql�뿉 �젒�냽�빐 二쇰뒗 遺�遺�
+	public UserDAO() { // �깮�꽦�옄 �떎�뻾�맆�븣留덈떎 �옄�룞�쑝濡� db�뿰寃곗씠 �씠猷⑥뼱 吏� �닔 �엳�룄濡앺븿
 
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/Buk_web"; // localhost:3306 포트는 컴퓨터설치된 mysql주소
-			String dbID = "root";
-			String dbPassword = "man27040";
+			String dbURL = "jdbc:mysql://localhost/mtn2072?&useSSL=false";
+			String dbID = "mtn2072";
+			String dbPassword = "Man2704020_";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
-			e.printStackTrace(); // 오류가 무엇인지 출력
+			e.printStackTrace(); // �삤瑜섍� 臾댁뾿�씤吏� 異쒕젰
 		}
 
 	}
 
-	// 로그인을 시도하는 함수****
+	// 濡쒓렇�씤�쓣 �떆�룄�븯�뒗 �븿�닔****
 	public int login(String userID, String userPassword) {
 
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 
 		try {
 
-			// pstmt : prepared statement 정해진 sql문장을 db에 삽입하는 형식으로 인스턴스가져옴
+			// pstmt : prepared statement �젙�빐吏� sql臾몄옣�쓣 db�뿉 �궫�엯�븯�뒗 �삎�떇�쑝濡� �씤�뒪�꽩�뒪媛��졇�샂
 			pstmt = conn.prepareStatement(SQL);
 
-			// sql인젝션 같은 해킹기법을 방어하는것... pstmt을 이용해 하나의 문장을 미리 준비해서(물음표사용)
-			// 물음표해당하는 내용을 유저아이디로, 매개변수로 이용.. 1)존재하는지 2)비밀번호무엇인지
+			// sql�씤�젥�뀡 媛숈� �빐�궧湲곕쾿�쓣 諛⑹뼱�븯�뒗寃�... pstmt�쓣 �씠�슜�빐 �븯�굹�쓽 臾몄옣�쓣 誘몃━ 以�鍮꾪빐�꽌(臾쇱쓬�몴�궗�슜)
+			// 臾쇱쓬�몴�빐�떦�븯�뒗 �궡�슜�쓣 �쑀���븘�씠�뵒濡�, 留ㅺ컻蹂��닔濡� �씠�슜.. 1)議댁옱�븯�뒗吏� 2)鍮꾨�踰덊샇臾댁뾿�씤吏�
 			pstmt.setString(1, userID);
 
-			// rs:result set 에 결과보관
+			// rs:result set �뿉 寃곌낵蹂닿�
 			rs = pstmt.executeQuery();
 
-			// 결과가 존재한다면 실행
+			// 寃곌낵媛� 議댁옱�븳�떎硫� �떎�뻾
 			if (rs.next()) {
 
-				// 패스워드 일치한다면 실행
+				// �뙣�뒪�썙�뱶 �씪移섑븳�떎硫� �떎�뻾
 
 				if (rs.getString(1).equals(userPassword)) {
-					return 1; // 로그인 성공
+					return 1; // 濡쒓렇�씤 �꽦怨�
 				} else
-					return 0; // 비밀번호 불일치
+					return 0; // 鍮꾨�踰덊샇 遺덉씪移�
 			}
-			return -1; // 아이디가 없음 오류
+			return -1; // �븘�씠�뵒媛� �뾾�쓬 �삤瑜�
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -2; // 데이터베이스 오류를 의미
+		return -2; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜섎�� �쓽誘�
 	}
     public int join(User user) {
     	String SQL = "INSERT INTO USER VALUES (?, ?, ?)";
@@ -73,7 +73,7 @@ public class UserDAO {
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
-    	return -1 ; //DB 오류
+    	return -1 ; //DB �삤瑜�
     	
     }
 

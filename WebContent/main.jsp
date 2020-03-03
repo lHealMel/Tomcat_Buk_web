@@ -48,8 +48,8 @@
 			<ul class="nav navbar-nav">
 
 				<li class="active"><a href="main.jsp">메인</a></li>
+
 				<li><a href="BBS.jsp">게시판</a></li>
-				<li class="active"><a href="Notice.jsp">공지사항</a></li>
 
 			</ul>
 			<%
