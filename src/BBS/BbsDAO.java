@@ -7,15 +7,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class BbsDAO {
-	// dao : �뜲�씠�꽣踰좎씠�뒪 �젒洹� 媛앹껜�쓽 �빟�옄
 
-	private Connection conn; // connection:db�뿉�젒洹쇳븯寃� �빐二쇰뒗 媛앹껜
+	private Connection conn;
 	private ResultSet rs;
 
-	// mysql 泥섎━遺�遺�
 	public BbsDAO() {
 
-		// �깮�꽦�옄瑜� 留뚮뱾�뼱以��떎.
 		try {
 
 			String dbURL = "jdbc:mysql://localhost/mtn2072?&useSSL=false";
@@ -101,7 +98,7 @@ public class BbsDAO {
 	}
 
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
@@ -148,7 +145,20 @@ public class BbsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
+		return -1;
+	}
+
+	public int delete(int bbsID) {
+		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bbsID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+
 	}
 
 }
