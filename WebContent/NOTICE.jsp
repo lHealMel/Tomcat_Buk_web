@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="BBS.BbsDAO"%>
-<%@ page import="BBS.Bbs"%>
+<%@ page import="NOTICE.NoticeDAO"%>
+<%@ page import="NOTICE.Notice"%>
 <%@ page import="java.util.ArrayList"%>
 
 
@@ -19,7 +19,7 @@
 <title>Buk-web</title>
 <style type="text/css">
 a, a:hover {
-	color: #000000;
+	color: #ff0000;
 	text-decoration: none;
 }
 </style>
@@ -52,7 +52,7 @@ a, a:hover {
 
 			</button>
 
-			<a class="navbar-brand" href="main.jsp">북고 웹</a>
+			<a class="navbar-brand" href="main.jsp">Buk-web</a>
 
 		</div>
 
@@ -62,8 +62,8 @@ a, a:hover {
 			<ul class="nav navbar-nav">
 
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="BBS.jsp">게시판</a></li>
-				<li><a href="NOTICE.jsp">공지사항</a></li>
+				<li><a href="BBS.jsp">게시판</a></li>
+				<li class="active"><a href="NOTICE.jsp">게시판</a></li>
 
 			</ul>
 			<%
@@ -109,16 +109,17 @@ a, a:hover {
 				</thead>
 				<tbody>
 					<%
-						BbsDAO bbsDAO = new BbsDAO();
-						ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+						NoticeDAO noticeDAO = new NoticeDAO();
+						ArrayList<Notice> list = noticeDAO.getList(pageNumber);
 						for (int i = 0; i < list.size(); i++) {
 					%>
 					<tr>
-						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;")%></a></td>
+						<td><%=list.get(i).getNoticeID()%></td>
+						<td><a
+							href="view.jsp?noticeID=<%=list.get(i).getNoticeID()%>"><%=list.get(i).getNoticeTitle().replaceAll(" ", "&nbsp;")%></a></td>
 						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-						+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+						<td><%=list.get(i).getNoticeDate().substring(0, 11) + list.get(i).getNoticeDate().substring(11, 13)
+						+ "시" + list.get(i).getNoticeDate().substring(14, 16) + "분"%></td>
 					</tr>
 					<%
 						}
@@ -130,13 +131,13 @@ a, a:hover {
 			<%
 				if (pageNumber != 1) {
 			%>
-			<a href="BBS.jsp?pageNumber=<%=pageNumber - 1%>"
+			<a href="NOTICE.jsp?pageNumber=<%=pageNumber - 1%>"
 				class="btn btn-success btn-arrow-left">이전</a>
 			<%
 				}
-				if (bbsDAO.nextPage(pageNumber + 1)) {
+				if (noticeDAO.nextPage(pageNumber + 1)) {
 			%>
-			<a href="BBS.jsp?pageNumber=<%=pageNumber + 1%>"
+			<a href="NOTICE.jsp?pageNumber=<%=pageNumber + 1%>"
 				class="btn btn-success btn-arrow-left">다음</a>
 			<%
 				}

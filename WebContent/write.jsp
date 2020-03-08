@@ -13,7 +13,7 @@
 
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>jsp 게시판 웹사이트</title>
+<title>Buk-web</title>
 </head>
 <body>
 
@@ -30,17 +30,18 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
+				aria-expanded="false">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판</a>
+			<a class="navbar-brand" href="main.jsp">Buk-web</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
+				<li class="active"><a href="BBS.jsp">게시판</a></li>
+				<li><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 
 			<%
@@ -84,7 +85,7 @@
 					<thead>
 						<tr>
 							<th colspan="2"
-								style="background-color: #eeeeee; text-align: center;">게시판  글 쓰기 양식</th>
+								style="background-color: #eeeeee; text-align: center;">게시판 글 쓰기</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -15,7 +15,7 @@
 
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>jsp 게시판 웹사이트</title>
+<title>Buk-web</title>
 </head>
 <body>
 
@@ -58,17 +58,18 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
+				aria-expanded="false">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판</a>
+			<a class="navbar-brand" href="main.jsp">게시판</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
+				<li class="active"><a href="BBS.jsp">게시판</a></li>
+				<li><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -91,18 +92,18 @@
 					<thead>
 						<tr>
 							<th colspan="2"
-								style="background-color: #eeeeee; text-align: center;">게시판 글 수정
-								양식</th>
+								style="background-color: #eeeeee; text-align: center;">글 수정
+								</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td><input type="text" class="form-control"
-								placeholder="글 제목" name="bbsTitle" maxlength="50" value = "<%= bbs.getBbsTitle()%>"/></td>
+								placeholder="글 제목" name="bbsTitle" maxlength="50" value = "<%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;")%>"/></td>
 						</tr>
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용"
-									name="bbsContent" maxlength="2048" style="height: 350px;"><%= bbs.getBbsContent()%></textarea></td>
+									name="bbsContent" maxlength="2048" style="height: 350px;"><%= bbs.getBbsContent().replaceAll(" ", "&nbsp;")%></textarea></td>
 						</tr>
 					</tbody>
 				</table>

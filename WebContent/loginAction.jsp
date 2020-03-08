@@ -23,7 +23,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Buk_web test 페이지</title>
+<title>Buk-web</title>
 
 </head>
 
@@ -38,7 +38,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('이미 로그인이 되어있습니다')");
-			script.println("location.href = 'main.jsp'");
+			script.println("location.href = 'BBS.jsp'");
 			script.println("</script>");
 		}
 		UserDAO userDAO = new UserDAO(); //인스턴스생성
@@ -50,7 +50,7 @@
 			session.setAttribute("userID", user.getUserID());
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'main.jsp'");
+			script.println("location.href = 'BBS.jsp'");
 			script.println("</script>");
 
 		}

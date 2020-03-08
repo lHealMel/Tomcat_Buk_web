@@ -24,7 +24,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Buk_web test 페이지</title>
+<title>Buk-web</title>
 
 </head>
 

@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>Buk_web</title>
+<title>Buk-web</title>
 </head>
 <body>
 	<script>
-		location.href = 'main.jsp';
+		location.href = 'BBS.jsp';
 	</script> 
 </body>
 </html>

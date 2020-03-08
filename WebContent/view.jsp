@@ -15,7 +15,7 @@
 
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>jsp 게시판 웹사이트</title>
+<title>Buk-web</title>
 </head>
 <body>
 
@@ -44,17 +44,18 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expaned="false">
+				aria-expanded="false">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판</a>
+			<a class="navbar-brand" href="main.jsp">Buk-web</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
+				<li class="active"><a href="BBS.jsp">게시판</a></li>
+				<li><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 
 			<%
@@ -102,7 +103,7 @@
 				<tbody>
 					<tr>
 						<td style="width: 20%;">글 제목</td>
-						<td colspan="2"><%=bbs.getBbsTitle()%></td>
+						<td colspan="2"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;")%></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
@@ -115,7 +116,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left"><%=bbs.getBbsContent()%></td>
+						<td colspan="2" style="min-height: 200px; text-align: left"><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("\n","<br>")%></td>
 					</tr>
 				</tbody>
 			</table>
@@ -124,8 +125,7 @@
 				if (userID != null && userID.equals(bbs.getUserID())) {
 			%>
 			<a href="update.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">수정
-			</a> <a onclick="return confirm('정말로 삭제하시겠습니까?')"
-				href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">삭제
+			</a> <a href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">삭제
 			</a>
 			<%
 				}

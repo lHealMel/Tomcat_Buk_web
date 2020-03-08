@@ -13,7 +13,7 @@
 
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<title>게시판</title>
+<title>Buk-web</title>
 </head>
 <body>
 	<%
@@ -26,31 +26,21 @@
 
 	<!-- 네비게이션  -->
 	<nav class="navbar navbar-default">
-
 		<div class="navbar-header">
-
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expaned="false">
-
+				aria-expanded="false">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-
 			</button>
-
-			<a class="navbar-brand" href="main.jsp">Test용 (main.jsp) 게시판</a>
-
+			<a class="navbar-brand" href="main.jsp">Buk-web</a>
 		</div>
-
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
-
 			<ul class="nav navbar-nav">
-
 				<li class="active"><a href="main.jsp">메인</a></li>
-
 				<li><a href="BBS.jsp">게시판</a></li>
-
+				<li><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 			<%
 				if (userID == null) {
@@ -82,10 +72,12 @@
 		</div>
 	</nav>
 	<!-- 애니매이션 담당 JQUERY -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 	<!-- 부트스트랩 JS  -->
-	<script src="js/bootstrap.js"></script>
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 </body>

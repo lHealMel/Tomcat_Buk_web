@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>Buk_web Sign Up page</title>
+<title>Buk-web Sign Up page</title>
 
 <link rel="stylesheet" href="style.css">
 </head>
