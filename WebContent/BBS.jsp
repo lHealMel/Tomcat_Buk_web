@@ -52,7 +52,7 @@ a, a:hover {
 
 			</button>
 
-			<a class="navbar-brand" href="main.jsp">북고 웹</a>
+			<a class="navbar-brand" href="main.jsp">Buk-web</a>
 
 		</div>
 
@@ -101,7 +101,6 @@ a, a:hover {
 				style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th style="backgorund-color: #eeeeee; text-align: center;">번호</th>
 						<th style="backgorund-color: #eeeeee; text-align: center;">제목</th>
 						<th style="backgorund-color: #eeeeee; text-align: center;">작성자</th>
 						<th style="backgorund-color: #eeeeee; text-align: center;">작성일</th>
@@ -114,11 +113,9 @@ a, a:hover {
 						for (int i = 0; i < list.size(); i++) {
 					%>
 					<tr>
-						<td><%=list.get(i).getBbsID()%></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;")%></a></td>
-						<td><%=list.get(i).getUserID()%></td>
-						<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-						+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+						<td align = "left" width = "40%"><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;")%></a></td>
+						<td width = "30%"><%=list.get(i).getUserID()%></td>
+						<td width = "30%"><%=list.get(i).getBbsDate().substring(0, 11)%></td>
 					</tr>
 					<%
 						}

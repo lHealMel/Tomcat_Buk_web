@@ -63,7 +63,7 @@ a, a:hover {
 
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="BBS.jsp">게시판</a></li>
-				<li class="active"><a href="NOTICE.jsp">게시판</a></li>
+				<li class="active"><a href="NOTICE.jsp">공지사항</a></li>
 
 			</ul>
 			<%
@@ -144,7 +144,7 @@ a, a:hover {
 			%>
 
 			<!-- 회원만넘어가도록 -->
-			<%
+			 <!--<%
 				//if logined userID라는 변수에 해당 아이디가 담기고 if not null
 				if (session.getAttribute("userID") != null) {
 			%>
@@ -157,7 +157,7 @@ a, a:hover {
 				type="button">글쓰기</button>
 			<%
 				}
-			%>
+			%>  -->
 
 		</div>
 	</div>
