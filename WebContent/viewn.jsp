@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="BBS.Bbs"%>
-<%@ page import="BBS.BbsDAO"%>
+<%@ page import="NOTICE.Notice"%>
+<%@ page import="NOTICE.NoticeDAO"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,18 +25,18 @@
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
-		int bbsID = 0;
-		if (request.getParameter("bbsID") != null) {
-			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		int noticeID = 0;
+		if (request.getParameter("noticeID") != null) {
+			noticeID = Integer.parseInt(request.getParameter("noticeID"));
 		}
-		if (bbsID == 0) {
+		if (noticeID == 0) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('유효하지 않은 글 입니다.')");
-			script.println("location.href = 'BBS.jsp'");
+			script.println("location.href = 'NOTICE.jsp'");
 			script.println("</script>");
 		}
-		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		Notice notice = new NoticeDAO().getNotice(noticeID);
 	%>
 
 	<!-- 네비게이션  -->
@@ -54,8 +54,8 @@
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="BBS.jsp">건의 게시판</a></li>
-				<li><a href="NOTICE.jsp">공지사항</a></li>
+				<li><a href="BBS.jsp">건의 게시판</a></li>
+				<li class="active"><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 
 			<%
@@ -103,30 +103,30 @@
 				<tbody>
 					<tr>
 						<td style="width: 20%;">글 제목</td>
-						<td colspan="2"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;")%></td>
+						<td colspan="2"><%=notice.getNoticeTitle().replaceAll(" ", "&nbsp;")%></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td colspan="2"><%=bbs.getUserID()%></td>
+						<td colspan="2"><%=notice.getUserID()%></td>
 					</tr>
 					<tr>
 						<td>작성 일자</td>
-						<td colspan="2"><%=bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
-					+ bbs.getBbsDate().substring(14, 16) + "분"%></td>
+						<td colspan="2"><%=notice.getNoticeDate().substring(0, 11) + notice.getNoticeDate().substring(11, 13) + "시"
+					+ notice.getNoticeDate().substring(14, 16) + "분"%></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left"><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("\n","<br>")%></td>
+						<td colspan="2" style="min-height: 200px; text-align: left"><%=notice.getNoticeContent().replaceAll(" ", "&nbsp;").replaceAll("\n","<br>")%></td>
 					</tr>
 				</tbody>
 			</table>
-			<a href="BBS.jsp" class="btn btn-primary">목록</a>
+			<a href="NOTICE.jsp" class="btn btn-primary">목록</a>
 			<%
-				if (userID != null && userID.equals(bbs.getUserID())) {
+				if (userID != null && userID.equals(notice.getUserID())) {
 			%>
-			<a href="update.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">수정</a>
-			 <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">삭제</a>
-
+			<a href="updaten.jsp?noticeID=<%=noticeID%>" class="btn btn-primary">수정
+			</a> <a href="deleteAction.jsp?noticeID=<%=noticeID%>" class="btn btn-primary">삭제
+			</a>
 			<%
 				}
 			%>

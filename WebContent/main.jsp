@@ -39,7 +39,7 @@
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="main.jsp">메인</a></li>
-				<li><a href="BBS.jsp">게시판</a></li>
+				<li><a href="BBS.jsp">건의 게시판</a></li>
 				<li><a href="NOTICE.jsp">공지사항</a></li>
 			</ul>
 			<%
@@ -75,7 +75,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 	<!-- 부트스트랩 JS  -->
-
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

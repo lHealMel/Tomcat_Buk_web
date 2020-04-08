@@ -40,8 +40,23 @@
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="BBS.jsp">게시판</a></li>
+				<%
+				   if(session.getAttribute("userID") != null && session.getAttribute("userID").equals("Admin")){
+				%>
+				<li><a href="BBS.jsp">건의 게시판</a></li>
+				<li class="active"><a href="NOTICE.jsp">공지사항</a></li>
+
+				<%
+				   }else{
+					   %>
+				<li class="active"><a href="BBS.jsp">건의 게시판</a></li>
 				<li><a href="NOTICE.jsp">공지사항</a></li>
+				<%
+				   }
+				%>
+
+
+
 			</ul>
 
 			<%
@@ -79,19 +94,23 @@
 	<!-- 게시판 -->
 	<div class="container">
 		<div class="row">
+			<% 
+		if(session.getAttribute("userID") != null && !session.getAttribute("userID").equals("Admin")){
+		%>
 			<form method="post" action="writeAction.jsp">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
 							<th colspan="2"
-								style="background-color: #eeeeee; text-align: center;">게시판 글 쓰기</th>
+								style="background-color: #eeeeee; text-align: center;">게시판
+								글 쓰기</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td><input type="text" class="form-control"
-								placeholder="글 제목" name="bbsTitle" maxlength="50"/></td>
+								placeholder="글 제목" name="bbsTitle" maxlength="50" /></td>
 						</tr>
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용"
@@ -101,6 +120,36 @@
 				</table>
 				<input type="submit" class="btn btn-primary pull-right" value="글쓰기" />
 			</form>
+			<%
+		}
+		if(session.getAttribute("userID").equals("Admin")){
+		%>
+			<form method="post" action="writeActionn.jsp">
+				<table class="table table-striped"
+					style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="2"
+								style="background-color: #eeeeee; text-align: center;">공지사항
+								글쓰기</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control"
+								placeholder="글 제목" name="noticeTitle" maxlength="50" /></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" placeholder="글 내용"
+									name="noticeContent" maxlength="2048" style="height: 350px;"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-primary pull-right" value="글쓰기" />
+			</form>
+			<%
+		}
+			%>
 		</div>
 	</div>
 

@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="BBS.Bbs"%>
-<%@ page import="BBS.BbsDAO"%>
+<%@ page import="NOTICE.Notice"%>
+<%@ page import="NOTICE.NoticeDAO"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,23 +32,23 @@
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
 		}
-		int bbsID = 0;
-		if (request.getParameter("bbsID") != null) {
-			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		int noticeID = 0;
+		if (request.getParameter("noticeID") != null) {
+			noticeID = Integer.parseInt(request.getParameter("noticeID"));
 		}
-		if (bbsID == 0) {
+		if (noticeID == 0) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('유효하지 않은 글 입니다.')");
-			script.println("location.href = 'BBS.jsp'");
+			script.println("location.href = 'NOTICE.jsp'");
 			script.println("</script>");
 		}
-		Bbs bbs = new BbsDAO().getBbs(bbsID);
-		if (!userID.equals(bbs.getUserID())) {
+		Notice notice = new NoticeDAO().getNotice(noticeID);
+		if (!userID.equals(notice.getUserID())) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('권한이 없습니다.')");
-			script.println("location.href = 'BBS.jsp'");
+			script.println("location.href = 'NOTICE.jsp'");
 			script.println("</script>");
 		}
 	%>
@@ -86,7 +86,7 @@
 	<!-- 게시판 -->
 	<div class="container">
 		<div class="row">
-			<form method="post" action="updateAction.jsp?bbsID=<%= bbsID %>">
+			<form method="post" action="updateActionn.jsp?noticeID=<%= noticeID %>">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
@@ -99,11 +99,11 @@
 					<tbody>
 						<tr>
 							<td><input type="text" class="form-control"
-								placeholder="글 제목" name="bbsTitle" maxlength="50" value = "<%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;")%>"/></td>
+								placeholder="글 제목" name="noticeTitle" maxlength="50" value = "<%= notice.getNoticeTitle().replaceAll(" ", "&nbsp;")%>"/></td>
 						</tr>
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용"
-									name="bbsContent" maxlength="2048" style="height: 350px;"><%= bbs.getBbsContent().replaceAll(" ", "&nbsp;")%></textarea></td>
+									name="noticeContent" maxlength="2048" style="height: 350px;"><%= notice.getNoticeContent().replaceAll(" ", "&nbsp;")%></textarea></td>
 						</tr>
 					</tbody>
 				</table>
