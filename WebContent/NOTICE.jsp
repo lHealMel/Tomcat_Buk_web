@@ -42,7 +42,6 @@
 	%>
 
 	<!-- 네비게이션  -->
-
 	<%
 		if (userID == null) {
 	%>
@@ -54,6 +53,16 @@
 		</ul>
 		</nav>
 		<%
+			}else if(session.getAttribute("userID").equals("Admin")){
+		%>
+			<nav style="padding-top: 65px;">
+		<ul class="nav-container">
+			<li class="nav-item"><a href="BBSA.jsp">건의함 </a></li>
+			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
+			<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
+		</ul>
+		</nav>
+				<%
 			} else {
 		%>
 		<nav style="padding-top: 65px;">

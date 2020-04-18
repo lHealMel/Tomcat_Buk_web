@@ -35,6 +35,19 @@
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
+		if (userID == null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인이 필요합니다.')");
+			script.println("location.href = 'login.jsp'");
+			script.println("</script>");
+		}if(!session.getAttribute("userID").equals("Admin")){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('잘못된 접근입니다.')");
+			script.println("location.href = 'BBS.jsp'");
+			script.println("</script>");
+		}
 		int pageNumber = 1; //기본 페이지 넘버
 		//페이지넘버값이 있을때
 		if (request.getParameter("pageNumber") != null) {
@@ -43,20 +56,6 @@
 	%>
 
 	<!-- 네비게이션  -->
-
-	<%
-		if (userID == null) {
-	%>
-	<nav style="padding-top: 65px;">
-		<ul class="nav-container">
-			<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
-			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
-			<li class="nav-item"><a href="login.jsp">로그인</a></li>
-		</ul>
-		</nav>
-		<%
-			}else if(session.getAttribute("userID").equals("Admin")){
-		%>
 			<nav style="padding-top: 65px;">
 		<ul class="nav-container">
 			<li class="nav-item"><a href="BBSA.jsp">건의함 </a></li>
@@ -64,19 +63,6 @@
 			<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
 		</ul>
 		</nav>
-				<%
-			} else {
-		%>
-		<nav style="padding-top: 65px;">
-			<ul class="nav-container">
-				<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
-				<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
-				<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
-			</ul>
-			</nav>
-			<%
-				}
-			%>
 
 		<!-- 게시판  -->
 		<div class="container">
@@ -96,14 +82,14 @@
 					<tbody>
                         <%
                             BbsDAO bbsDAO = new BbsDAO();
-                            ArrayList<Bbs> list = bbsDAO.getList(pageNumber, userID);
-                            for (int i = 0; i < list.size(); i++) {
+                            ArrayList<Bbs> listA = bbsDAO.getListA(pageNumber);
+                            for (int i = 0; i < listA.size(); i++) {
                         %>
                         <tr>
                             <td class="alpha" align="left" width="40%"><a
-                                href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;")%></a></td>
-                            <td width="30%"><%=list.get(i).getUserID()%></td>
-                            <td width="30%"><%=list.get(i).getBbsDate().substring(0, 11)%></td>
+                                href="view.jsp?bbsID=<%=listA.get(i).getBbsID()%>"><%=listA.get(i).getBbsTitle().replaceAll(" ", "&nbsp;")%></a></td>
+                            <td width="30%"><%=listA.get(i).getUserID()%></td>
+                            <td width="30%"><%=listA.get(i).getBbsDate().substring(0, 11)%></td>
                         </tr>
                         <%
                             }

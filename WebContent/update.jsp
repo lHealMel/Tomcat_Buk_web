@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="BBS.Bbs"%>
 <%@ page import="BBS.BbsDAO"%>
@@ -14,10 +13,31 @@
 <meta name="viewport" content="width=device-width">
 
 <!-- 스타일시트 참조  -->
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="mainstyle.css">
 <title>Buk-web</title>
+
+<script>
+function checkout(){
+	event.returnValue = "수정하신 내용은 저장되지 않습니다. 정말 나가시겠습니까?";
+}
+</script>
+
+<style type="text/css">
+.nav-item:nth-child(1) {
+	background-color: lightseagreen;
+}
+
+.alpha a, .alpha a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+</style>
 </head>
-<body>
+<body onbeforeunload="checkout();">
+
+
+ 
 
 	<%
 		//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
@@ -51,37 +71,35 @@
 			script.println("location.href = 'BBS.jsp'");
 			script.println("</script>");
 		}
+		
+		
 	%>
 
 	<!-- 네비게이션  -->
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="main.jsp">Buk_web</a>
-		</div>
-		<div class="collapse navbar-collapse"
-			id="#bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="BBS.jsp">건의 게시판</a></li>
-				<li><a href="NOTICE.jsp">공지사항</a></li>
+		<%
+			if(session.getAttribute("userID").equals("Admin")){
+		%>
+			<nav style="padding-top: 65px;">
+		<ul class="nav-container">
+			<li class="nav-item"><a href="BBSA.jsp">건의함 </a></li>
+			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
+			<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
+		</ul>
+		</nav>
+				<%
+			} else {
+		%>
+		<nav style="padding-top: 65px;">
+			<ul class="nav-container">
+				<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
+				<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
+				<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">회원관리<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="logoutAction.jsp">로그아웃</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
+			</nav>
+			<%
+				}
+			%>
+
 
 	<!-- 게시판 -->
 	<div class="container">
@@ -114,6 +132,7 @@
 
 	<!-- 애니매이션 담당 JQUERY -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 
 	<!-- 부트스트랩 JS  -->
 	<script src="js/bootstrap.js"></script>

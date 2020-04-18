@@ -18,7 +18,7 @@
 		<h1>회원가입</h1>
 		<input type="text" placeholder="아이디" name="userID" maxlength="20">
 		<input type="password" placeholder="비밀번호" name="userPassword" maxlength="20">
-			 <input type="text" placeholder="닉네임" name="userName" maxlength="20"> 
+			 <input type="text" placeholder="실명" name="userName" maxlength="20"> 
 			<input type="submit" value="회원가입">
 	</form>
 </body>

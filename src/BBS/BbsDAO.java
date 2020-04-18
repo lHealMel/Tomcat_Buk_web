@@ -15,7 +15,7 @@ public class BbsDAO {
 
 		try {
 
-			String dbURL = "jdbc:mysql://localhost/mtn2072?&useSSL=false";
+			String dbURL = "jdbc:mysql://localhost/mtn2072?&useSSL=false&allowPublicKeyRetrieval=true&useSSL=false";
 			String dbID = "mtn2072";
 			String dbPassword = "Man2704020_";
 			Class.forName("com.mysql.jdbc.Driver");
@@ -74,28 +74,52 @@ public class BbsDAO {
 		return -1; // �뜲�씠�꽣踰좎씠�뒪 �삤瑜�
 	}
 
-	public ArrayList<Bbs> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
-		ArrayList<Bbs> list = new ArrayList<Bbs>();
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Bbs BBS = new Bbs();
-				BBS.setBbsID(rs.getInt(1));
-				BBS.setBbsTitle(rs.getString(2));
-				BBS.setUserID(rs.getString(3));
-				BBS.setBbsDate(rs.getString(4));
-				BBS.setBbsContent(rs.getString(5));
-				BBS.setBbsAvailable(rs.getInt(6));
-				list.add(BBS);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+	 public ArrayList<Bbs> getList(int pageNumber, String userID) {
+	        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND userID = ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+	        ArrayList<Bbs> list = new ArrayList<Bbs>();
+	        try {
+	            PreparedStatement pstmt = conn.prepareStatement(SQL);
+	            pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+	            pstmt.setString(2, userID);
+	            rs = pstmt.executeQuery();
+	            while (rs.next()) {
+	                Bbs BBS = new Bbs();
+	                BBS.setBbsID(rs.getInt(1));
+	                BBS.setBbsTitle(rs.getString(2));
+	                BBS.setUserID(rs.getString(3));
+	                BBS.setBbsDate(rs.getString(4));
+	                BBS.setBbsContent(rs.getString(5));
+	                BBS.setBbsAvailable(rs.getInt(6));
+	                list.add(BBS);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return list;
+	    }
+	 
+	 public ArrayList<Bbs> getListA(int pageNumber) {
+	        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+	        ArrayList<Bbs> Alist = new ArrayList<Bbs>();
+	        try {
+	            PreparedStatement pstmt = conn.prepareStatement(SQL);
+	            pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+	            rs = pstmt.executeQuery();
+	            while (rs.next()) {
+	                Bbs BBS = new Bbs();
+	                BBS.setBbsID(rs.getInt(1));
+	                BBS.setBbsTitle(rs.getString(2));
+	                BBS.setUserID(rs.getString(3));
+	                BBS.setBbsDate(rs.getString(4));
+	                BBS.setBbsContent(rs.getString(5));
+	                BBS.setBbsAvailable(rs.getInt(6));
+	                Alist.add(BBS);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return Alist;
+	    }
 
 	public boolean nextPage(int pageNumber) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
@@ -160,5 +184,4 @@ public class BbsDAO {
 		return -1;
 
 	}
-
 }
