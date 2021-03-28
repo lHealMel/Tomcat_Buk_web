@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="mainstyle.css">
 <title>Buk-web</title>
 <style type="text/css">
-.nav-item:nth-child(1) {
+.nav-item:nth-child(2) {
 	background-color: lightseagreen;
 }
 
@@ -49,41 +49,31 @@
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
 	%>
 
-		<!-- 네비게이션  -->
 	<!-- 네비게이션  -->
-	<%
-		if (userID == null) {
-	%>
 	<nav style="padding-top: 65px;">
 		<ul class="nav-container">
+			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
+			<%
+				if(userID == null) {
+			%>
 			<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
-			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
 			<li class="nav-item"><a href="login.jsp">로그인</a></li>
-		</ul>
-		</nav>
-		<%
-			}else if(session.getAttribute("userID").equals("Admin")){
-		%>
-			<nav style="padding-top: 65px;">
-		<ul class="nav-container">
+			<%
+				}else if(userID != null && session.getAttribute("userID").equals("Admin")){
+			%>
 			<li class="nav-item"><a href="BBSA.jsp">건의함 </a></li>
-			<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
 			<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
-		</ul>
-		</nav>
-				<%
-			} else {
-		%>
-		<nav style="padding-top: 65px;">
-			<ul class="nav-container">
-				<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
-				<li class="nav-item"><a href="NOTICE.jsp">공지사항 </a></li>
-				<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
-			</ul>
-			</nav>
+			<%
+				}else if(userID != null){
+			%>
+			<li class="nav-item"><a href="BBS.jsp">건의함 </a></li>
+			<li class="nav-item"><a href="logoutAction.jsp">로그아웃</a></li>
 			<%
 				}
 			%>
+			<li class="nav-item"><a href="JavaScript:window.location.reload()">새로고침</a></li>
+		</ul>
+	</nav>
 
 
 	<!-- 게시판 -->
@@ -120,7 +110,7 @@
 			</table>
 			<a href="BBS.jsp" class="btn btn-primary">목록</a>
 			<%
-				if (userID != null && userID.equals(bbs.getUserID())) {
+				if (userID != null && userID.equals(bbs.getUserID()) || userID.equals("Admin")){
 			%>
 			<a href="update.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">수정</a>
 			 <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn btn-primary">삭제</a>

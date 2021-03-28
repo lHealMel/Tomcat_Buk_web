@@ -43,7 +43,7 @@
 			script.println("</script>");
 		}
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
-		if (!userID.equals(bbs.getUserID())) {
+		if (!userID.equals(bbs.getUserID()) && !userID.equals("Admin")) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('권한이 없습니다.')");
@@ -62,7 +62,6 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href='BBS.jsp'");
-				//script.println("history.back()");
 				script.println("</script>");
 			}
 		}

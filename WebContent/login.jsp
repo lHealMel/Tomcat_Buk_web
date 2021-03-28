@@ -19,8 +19,8 @@
 		<input type="text" placeholder="아이디" name="userID" maxlength="20">
 		<input type="password" placeholder="패스워드" name="userPassword"
 			maxlength="20"> <input type="submit" value="로그인">
-		<button type="button" onclick="location.href='join.jsp'">회원가입</button>
+	    <button type="button" id = "button_back" onclick="javascript:history.back();">뒤로</button>
+		<button type="button" id = "button_register" onclick="location.href='join.jsp'">회원가입</button>
 	</form>
 </body>
-
 </html>

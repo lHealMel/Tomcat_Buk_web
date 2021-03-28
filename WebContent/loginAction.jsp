@@ -48,11 +48,7 @@
 			session.setAttribute("userID", user.getUserID());
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			if (!session.getAttribute("userID").equals("Admin")){
-			script.println("location.href = 'BBS.jsp'");
-			}else{
-				script.println("location.href = 'BBSA.jsp'");
-			}
+			script.println("location.href = 'NOTICE.jsp'");
 			script.println("</script>");
 
 		}
